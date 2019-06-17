@@ -5,6 +5,10 @@ Building linkedIn Website using Asp.Net MVC.
 
 
 
+
+
+
+--------------------------------------
  Migration Steps
  
  
@@ -12,7 +16,11 @@ Building linkedIn Website using Asp.Net MVC.
 
 
 2- Enable-Migrations
+   
+   
    Add-migration Initial
+   
+   
    Update-database.
 
 
