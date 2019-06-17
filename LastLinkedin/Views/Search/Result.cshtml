@@ -1,0 +1,30 @@
+﻿@model LastLinkedin.Models.ApplicationUser
+@{
+    ViewBag.Title = "Result";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Result</h2>
+
+
+
+@if (Model == null)
+{
+    <div style="color:red">
+        No Matched Users Found!
+    </div>
+}
+else
+{
+
+    <div class="card" style="width:200px">
+        <img class="card-img-top" src="~/Resources/anonymous.jpg" alt="Card image">
+        <div class="card-body">
+            <h5 class="card-title">@Model.firstName @Model.lastName</h5>
+            <p class="card-text">Some example text.</p>
+            <a href="#" class="btn btn-primary">Connect</a>
+        </div>
+    </div>
+
+}
+

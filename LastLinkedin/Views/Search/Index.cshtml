@@ -1,0 +1,23 @@
+﻿@model LastLinkedin.Models.ApplicationUser
+@{
+    ViewBag.Title = "Search";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Search</h2>
+<h6> You Can Search For a user By his/her Email</h6>
+<br />
+
+@using (Html.BeginForm("Result", "Search", FormMethod.Post))
+{
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <button class="btn btn-outline-secondary" type="submit" id="button-addon1">Search</button>
+        </div>
+        @Html.TextBox("email", null, new { type = "text", @class = "form-control", placeholder = "Enter the Email" })
+        @*<input type="text" class="form-control" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">*@
+    </div>
+}
+
+
+

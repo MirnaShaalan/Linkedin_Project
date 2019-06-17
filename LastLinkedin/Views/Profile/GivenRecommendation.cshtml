@@ -1,0 +1,17 @@
+﻿@model IEnumerable<LastLinkedin.Models.Recommendation>
+
+
+<div>
+    @foreach (var item in Model)
+    {
+        if (item.User_recommending_id == ViewBag.ccid)
+        {
+            <dl class="dl-horizontal">
+                <dt>   @Html.DisplayFor(model => item.User.firstName)</dt>
+                <dt>@Html.DisplayFor(model => item.other_details)</dt>
+            </dl>
+        }
+    }
+</div>
+
+

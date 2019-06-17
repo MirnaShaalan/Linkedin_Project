@@ -1,0 +1,63 @@
+﻿/*!
+ * Start Bootstrap - Scrolling Nav (https://startbootstrap.com/template-overviews/scrolling-nav)
+ * Copyright 2013-2017 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-scrolling-nav/blob/master/LICENSE)
+ */
+
+header {
+    /*padding: 154px 0 100px;*/
+    background-color: #283e4a;
+}
+
+@media (min-width: 992px) {
+    header {
+        padding: 156px 0 100px;
+    }
+}
+
+/*section {
+  padding: 150px 0;
+}*/
+
+/*.nav .view:hover{
+    background-color:lightblue;
+}
+.view>span {
+    align-content:center;
+}*/
+.view :hover {
+    background-color: lightblue;
+}
+
+.setting {
+    width: 100%;
+    padding: 8px 12px;
+    background-color: #f3f6f8;
+    text-transform: uppercase;
+    border-top: 1px solid rgba(0,0,0,.15);
+    border-bottom: 1px solid rgba(0,0,0,.15);
+    /*font-weight: 200;*/
+    color: rgba(0,0,0,.9);
+}
+
+.dropset li:hover {
+    background-color: dimgrey;
+}
+
+.dropset li {
+    padding-left: 0px;
+}
+
+.setting ul {
+    list-style-type: none;
+}
+
+.fa-pen :hover {
+    border: 1px solid grey;
+    border-radius: 50%;
+    padding: 10px 10px;
+}
+
+.hov:hover {
+    background-color: lightgray;
+}

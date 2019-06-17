@@ -1,0 +1,51 @@
+﻿
+@model IEnumerable<LastLinkedin.Models.Comment>
+@using LastLinkedin.Models;
+
+@{
+                /**/
+
+
+                ApplicationDbContext context = new ApplicationDbContext();
+
+}
+
+@foreach (var item in Model)
+{
+
+    var Usr = context.Users.FirstOrDefault(u => u.Id == item.PublishedID);
+
+
+    <div class="incoming_msg">
+        <div class="incoming_msg_img"> <img src="~/Resources/anonymous.jpg" style="width:50px;height:40px;border-radius:50%"> </div>
+        <div class="received_msg" style="width:70%;margin-left:5%;">
+            <div class="received_withd_msg">
+                <p style="color:black;">
+                    @Usr.firstName @Usr.lastName
+                </p>
+                <p>
+                    @item.Description
+                </p>
+            </div>
+        </div>
+    </div>
+
+    @*<div style="background-color:gainsboro;margin:3%;border-radius:20px">
+        <img src="~/Resources/anonymous.jpg" style="width:50px;height:40px;border-radius:50%" />
+        <span>
+            @Html.Label(Usr.firstName + ' ' + Usr.lastName, Usr.firstName + ' ' + Usr.lastName)
+        </span>
+        <br />
+        <span style="margin-left:10%">
+            @item.Description
+        </span>
+    </div>*@
+
+
+}
+
+
+
+
+
+

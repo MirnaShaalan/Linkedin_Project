@@ -1,0 +1,46 @@
+﻿@model  IEnumerable<LastLinkedin.Models.ApplicationUser>
+@using Microsoft.AspNet.Identity
+@using System.Threading;
+@using System.Security.Claims;
+
+<div class="card">
+    <div class="card-header">
+        <p class="lead">Invitations</p>
+
+    </div>
+    @foreach (var item in Model)
+    {
+        <div class="card-body">
+
+            <div class="invitation">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div style="width:100px;height:100px">
+                            <img src="~/Resources/anonymous.jpg" class="img-fluid rounded-circle">
+                        </div>
+                    </div>
+
+                    <div class="col-sm-4">
+                        <h5 style="margin-top: 10px;margin-left: -20px;">
+                            @IdentityExtensions.FindFirstValue(((ClaimsIdentity)item.Identity), "firstName")
+                            @IdentityExtensions.FindFirstValue(((ClaimsIdentity)item.Identity), "lastName")
+                        </h5>
+                        <p class="lead" style="margin-top: 7px;margin-left: -20px;">Trainee at ITI Ismailia Branch</p>
+
+                    </div>
+
+
+                    <div class="col-sm-5" style="margin-top: 30px">
+                        <button class="btn" style="color:#444 !important">Ignore</button>
+                        <button class="btn btn-default">Accept</button>
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    }
+
+
+</div>

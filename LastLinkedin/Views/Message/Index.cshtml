@@ -1,0 +1,116 @@
+﻿@model LastLinkedin.Models.ApplicationUser
+
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutMessage.cshtml";
+}
+
+
+
+
+<div class="container">
+    <h3 class=" text-center">Messaging</h3>
+    <div class="messaging">
+        <div class="inbox_msg">
+            <div class="inbox_people">
+                <div class="headind_srch">
+                    <div class="recent_heading">
+                        <h4>Recent</h4>
+                    </div>
+                    <div class="srch_bar">
+                        <span class="stylish-input-group">
+                          
+                            @using (Ajax.BeginForm("Search", "Message", new AjaxOptions() { HttpMethod = "Post", UpdateTargetId = "msg_history", InsertionMode = InsertionMode.Replace }))
+                            {
+                                <input type="text" name="username" class="search-bar" placeholder="Search">
+
+                                <span class="input-group-addon">
+                                    <input type="submit"  class="fa fa-search" aria-hidden="true"  style="width:20px;border-radius:50px;background-color:dodgerblue;color:dodgerblue"/>
+                                </span>
+                            }
+                         </span>
+                    </div>
+                </div>
+                <div class="inbox_chat">
+
+                    @Html.Action("GetAllMsg",new { id=Model.Id})
+
+                </div>
+            </div>
+            <div class="mesgs">
+                <div id="msg_history">
+
+                </div>
+                <div class="type_msg">
+                    <div class="input_msg_write">
+
+                        @using (Ajax.BeginForm("AddMessage", "Message", new { id = Model.Id }, new AjaxOptions() { HttpMethod = "Post", UpdateTargetId = "msg_history", InsertionMode = InsertionMode.Replace }))
+                        {
+                            <input type="text" name="msg" class="write_msg" placeholder="Type a message" />
+
+                            <span class="input-group-addon msg_send_btn">
+                                <input type="submit"  value="send" class="fa fa-paper-plane-o" aria-hidden="true" style="color:dodgerblue;margin-bottom:10%" />
+                            </span>
+
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+</div>
+@section scripts
+{
+    @*<script src="http://code.jquery.com/jquery-1.6.4.js"></script>
+    <script src="Scripts/jquery.signalR-2.4.0.min.js"></script>
+    <script src="signalr/hubs"></script>  to communicate between client and proxy*@
+    <script>
+        //var prox;
+        //var con;
+        //var name;
+        //$(function () {
+        //    //name = prompt("Enter your name:");
+
+        //    //1-define connection
+        //    con = $.hubConnection();
+        //    //2-create proxy
+        //    prox = con.createHubProxy("chathub");
+
+        //    //3-to start connection(choosing the way)
+        //    con.start();
+
+
+        //    prox.on("receivemessge", function (m, t) {
+        //        alert("rec")
+        //        $(".outgoing_msg").append("<div class='sent_msg'><p>" + m + "</p><span class='time_date'>" + t + "</span></div>");
+        //    });
+
+
+        //});
+        //var time = new Date().toLocaleTimeString();
+
+        //function send() {
+        //    prox.invoke("sendmessage", $("#txt").val(), time);
+        //}
+        //function sendone() {
+        //    alert("send one");
+        //    prox.invoke("sendmessageone", $("#txt").val(), time);
+        //}
+
+        function showActive() {
+            var eventname = document.querySelectorAll(".chat_list");
+            eventname.forEach(function (item) {
+                item.onclick = function () {
+                    this.classList.toggle("active_chat");
+                }
+            });
+
+        }
+
+    </script>
+}

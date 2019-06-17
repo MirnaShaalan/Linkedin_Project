@@ -1,0 +1,89 @@
+body {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(./backgroung.jpg);
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    background-attachment: fixed;
+}
+
+html {
+    background-color: #283e4a;
+    color: white;
+    font-family: "Lato", "Arial", "sans-serif";
+    text-rendering: optimizeLegibility;
+}
+
+.reg-form {
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 100px;
+    padding: 0;
+    height: 530px;
+}
+
+.label-header, .sub-label-header {
+    font-size: 30px;
+    font-family: Lato;
+    text-align: center;
+    padding-top: 25px;
+    padding-bottom: 5px;
+    padding-left: 10%;
+    padding-right: 10%;
+    line-height: 15px;
+    background-color: #f6f8fa;
+}
+
+.sub-label-header {
+    font-size: 19px;
+}
+
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    margin-top: 0px;
+    border-top: 1px solid #ccc;
+    padding: 0;
+}
+
+.reg-reg-form {
+    background-color: #edf0f3;
+    width: 400px;
+    margin: auto;
+}
+
+#first-name-label,
+#last-name-label,
+#email-label,
+#password-label {
+    margin: 0;
+    margin-top: -2px;
+    padding-top: -2px;
+    margin-left: 15px;
+}
+
+#first-name,
+#last-name,
+#email,
+#password {
+    margin-left: 15px;
+    width: 90%;
+}
+
+.btn-primary {
+    width: 89.5%;
+    margin-left: 16px;
+    background-color: #0073b1;
+}
+
+#privacy {
+    text-align: center;
+    font-size: 11px;
+    padding: 5px;
+}
+
+footer {
+    margin-top: -80px;
+    color: #ccc;
+    font-family: "Lato";
+}

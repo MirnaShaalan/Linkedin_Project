@@ -1,0 +1,44 @@
+﻿
+@model IEnumerable<LastLinkedin.Models.Message>
+@using LastLinkedin.Models;
+@using Microsoft.AspNet.Identity;
+@using Microsoft.AspNet.Identity.Owin;
+@using System.Web;
+
+
+
+@{
+    ApplicationDbContext context = new ApplicationDbContext();
+    ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+    
+}
+@foreach (var item in Model)
+{
+    if (user.Id==item.ReceiverId)
+    {
+        <div class="incoming_msg">
+            <div class="incoming_msg_img"> <img src="~/Resources/anonymous.jpg"> </div>
+            <div class="received_msg">
+                <div class="received_withd_msg">
+                    <p>
+                        @item.Msg
+                    </p>
+                    <span class="time_date"> @item.Date</span>
+                </div>
+            </div>
+        </div>
+    }
+
+    else
+    {
+        <div class="outgoing_msg">
+            <div class="sent_msg">
+                <p>
+                    @item.Msg
+                </p>
+                <span class="time_date"> @item.Date</span>
+            </div>
+        </div>
+    }
+
+}

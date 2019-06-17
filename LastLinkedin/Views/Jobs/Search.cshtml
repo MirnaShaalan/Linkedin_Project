@@ -1,0 +1,122 @@
+﻿
+@model IEnumerable<LastLinkedin.Models.Job>
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<link href="~/Resources/Jobs.css" rel="stylesheet" />
+<link href="~/Resources/DropDown.css" rel="stylesheet" />
+<link href="~/Resources/LoadMore.css" rel="stylesheet" />
+<link href="~/Resources/DropDown.css" rel="stylesheet" />
+
+<div style="margin-bottom:15px;">
+    <h2 style="display:inline; font-family:Arial; font-size:20px; color:#808080">@Model.ToList()[0].Title</h2>
+    <h2 style="display:inline; font-family:Arial; font-size:20px; color:#808080">'s Jobs</h2>
+
+</div>
+
+
+
+
+<section id="team" class="pb-5" style="border: 1px solid; border-color:#ada8a8;">
+    <div class="container" style=" margin-bottom:-60px; padding-bottom:27px;">
+
+        <div class="row">
+
+            @foreach (var item in Model)
+            {
+
+                <div value="aa" class=" col-md-3 blogBox moreBox" style="height:200px ; margin-top:40px; margin-bottom:40px; display: none;">
+
+
+                    <div value="aa" class="frontside idm" style="margin-bottom:20px;">
+                        <div value="qq" class="card" style="text-align:left; padding:0; height:240px; margin-bottom:40px; overflow:visible; display:block;">
+                            <div value="ss" class="card-body" style="text-align:left; margin-right:20px;">
+                                <p><img class=" img-fluid" src="https://www.freelogodesign.org/Content/img/logo-ex-6.png" alt="card image"></p>
+                                <div value="jj" class="container" style=" float:right; margin-right:-130px; margin-top:-57px">
+                                    @*<div class="dropdown" style="margin-right:-30px; padding-bottom:20px; ">*@
+                                    <div value="mm" class="dropdown fa fa-ellipsis-h btn mm" style="margin-right:-30px; padding-bottom:20px; " onclick="myFunction()">
+
+                                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel" id="uli">
+                                            <li style="color:black">
+                                                <a href="#">Save</a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="nn" onclick="myFun();">Not for me</a>
+                                            </li>
+                                        </ul>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <h4 style="font-size:13px; font-family:Arial,sans-serif; font-weight:bolder; margin-left:20px">@item.Title</h4>
+                            <p class="card-text" style="font-size:11px; margin-left:20px;">@item.Description.</p>
+                            <p style="color:#ada8a8; margin-left:20px;">ــــــــ</p>
+                            <p class="card-text" style="font-size:9px; color:#ada8a8; margin-left:20px;">Two Days Ago</p>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+            }
+
+        </div>
+
+    </div>
+</section>
+@section Scripts
+{
+    <script>
+
+                //function myFun() {
+                //    let eventname = document.querySelectorAll(".mm");
+                //    eventname.forEach(function (item) {
+                //        alert(item);
+                //        item.document.getElementById("idm").style.display = "none";
+                //        // document.getElementById("idm").style.display = "block";
+                //    }
+                //}
+
+                function myFun() {
+
+
+                    var flag = 1;
+                    //var eventdata = document.querySelectorAll('#uli');
+                    let eventname = document.querySelectorAll(".nn")
+
+                    eventname.forEach(function (item) {
+                        // alert(item);
+
+                        item.onclick = function () {
+                            //alert("jjjj");
+
+                            // $('#element1').parents().eq(2);
+                            alert(this.parentElement.parentElement.parentElement.nodeType);
+                            this.parentElement.parentElement.parentElement.parentElement.nodeName.style.display = " ";
+                            //flag = 1;
+
+                            //var el = this.parentElement;
+                            //while (el.className != 'idm') {
+                            //    el = el.parentElement;
+                            //}
+                            // e1.parentElement.style.display = "none";
+
+
+
+                        }
+                    })
+
+                }
+    </script>
+
+}
+<script src="~/Resources/LoadMore.js"></script>
+<script src="~/Resources/DropDown.js"></script>
+
+

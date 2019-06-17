@@ -1,0 +1,22 @@
+﻿@model IEnumerable<LastLinkedin.Models.ApplicationUser>
+
+@{
+    var x = 10;
+}
+
+@foreach (var item in Model)
+{
+
+    <div>
+        <img src="~/Resources/anonymous.jpg" style="width: 50px;height: 40px;border-radius: 50%;position: sticky;top:@x%;left: 2%;">
+
+        <span style="position:sticky;top:@x%;left:20%">@Html.Label(item.firstName + ' ' + item.lastName, item.firstName + ' ' + item.lastName)</span>
+    </div>
+    x = x + 30;
+    <hr />
+
+}
+
+
+
+

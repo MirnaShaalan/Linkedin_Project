@@ -1,0 +1,121 @@
+﻿@using System;
+@using System.Web;
+@using Microsoft.AspNet.Identity;
+@using Microsoft.AspNet.Identity.Owin;
+@{
+    var user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link href="~/Resources/StyleNetwork.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.3.1.js"></script>
+    <script src="~/Scripts/Network.js"></script>
+    <style>
+
+        .incoming_msg_img {
+            display: inline-block;
+            width: 6%;
+        }
+
+        .received_msg {
+            display: inline-block;
+            padding: 0 0 0 10px;
+            vertical-align: top;
+            width: 92%;
+        }
+
+        .received_withd_msg p {
+            background: #ebebeb none repeat scroll 0 0;
+            border-radius: 3px;
+            color: #646464;
+            font-size: 14px;
+            margin: 0;
+            padding: 5px 10px 5px 12px;
+            width: 100%;
+        }
+
+        .received_withd_msg {
+            width: 100%;
+            border: 6px white solid;
+        }
+        .hvr:hover {
+            background-color: whitesmoke;
+            cursor: pointer;
+        }
+
+        .hvr2:hover {
+            background-color: cadetblue;
+            width: 100%;
+            cursor: pointer;
+            padding: 10%;
+        }
+
+        .hvr2 {
+            background-color: whitesmoke;
+            width: 100%;
+            padding: 6%;
+        }
+
+        .hrp:hover {
+            cursor: pointer;
+        }
+
+        .hvrlk {
+            color: blue;
+        }
+
+        .silverkbg {
+            color: dimgrey;
+            font-size: 13px;
+        }
+
+        .hvrcomment {
+            padding: 0;
+            margin-top: 1%;
+            position: absolute;
+            right: 0%;
+            bottom: 10%;
+        }
+
+        body {
+            background-color: #f2f2f2;
+        }
+    </style>
+
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg mb-4 sticky-top" style="background-color:#283E4A; margin-top:-120px; height:60px; color:white;">
+        <a href="@Url.Action("Feeds", "Home", null)">
+            <img src="~/Resources/logo.png" style="margin-right:10px; margin-left:170px;">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav" style="margin-left:700px;">
+                @Html.Partial("_LoginPartial", user)
+            </div>
+        </div>
+    </nav>
+    <div class="container body-content">
+        @RenderBody()
+        <footer class="page-footer font-small teal pt-4">
+            <p style="text-align:center;">&copy; @DateTime.Now.Year - LinkedIn</p>
+            <!-- Copyright -->
+        </footer>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+
+</body>
+</html>

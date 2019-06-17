@@ -1,0 +1,59 @@
+﻿@*@model LastLinkedin.Models.RegisterViewModel*@
+@model LastLinkedin.Models.ApplicationUser
+
+@{
+    /**/
+
+    ViewBag.Title = "LinkedIn: Log In or Sign Up";
+}
+<link href="~/Content/bootstrap-grid.min.css" rel="stylesheet" />
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Resources/style.css" rel="stylesheet" />
+
+<div class="reg-form reg-reg-form">
+    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="label-header">
+            <label>Be great at what you do</label>
+            <label class="sub-label-header">Get started - it's free</label>
+        </div>
+
+        <hr />
+
+        @Html.LabelFor(m => m.firstName, new { id = "first-name-label" })
+        <div class="form-group">
+            @Html.TextBoxFor(m => m.firstName, new { @class = "form-control", id = "first-name" })
+        </div>
+
+
+
+        @Html.LabelFor(m => m.lastName, new { id = "last-name-label" })
+        <div class="form-group">
+            @Html.TextBoxFor(m => m.lastName, new { @class = "form-control", id = "last-name" })
+        </div>
+
+        @Html.ValidationSummary("", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(m => m.Email, new { id = "email-label" })
+            <div>
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", id = "email" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Password, new { id = "password-label" })
+            <div>
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control", id = "password" })
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Join Now</button>
+
+        <small id="privacy" class="form-text text-muted">
+            By clicking Join now, you agree to the LinkedIn User Agreement, Privacy
+            Policy, and Cookie Policy.
+        </small>
+    }
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

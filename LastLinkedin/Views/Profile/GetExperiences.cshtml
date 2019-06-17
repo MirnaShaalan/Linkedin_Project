@@ -1,0 +1,45 @@
+﻿@model IEnumerable<LastLinkedin.Models.WorkExperience>
+
+
+
+@foreach (var item in Model)
+{
+    <div style="margin:10px 10px; ">
+        <dl class="d-table-cell">
+            <dd>
+                <i class="fas fa-building fa-3x " style="position:relative;top:30px;margin-right:10px"></i>
+
+            </dd>
+        </dl>
+
+        <dl class=" d-lg-table-cell">
+
+
+            <dd>
+                @Html.DisplayFor(model => item.Title)
+            </dd>
+
+
+            <dd>
+                @Html.DisplayFor(model => item.CompanyName)
+            </dd>
+
+
+
+            <dd>
+                @Html.DisplayFor(model => item.StartDate)
+            -
+                @Html.DisplayFor(model => item.EndDate)
+            </dd>
+
+        </dl>
+
+        <p class="d-table-cell">
+            @Ajax.ActionLink("EditExperience", "EditExperience", new { id = item.ID }, new AjaxOptions { HttpMethod = "Get", UpdateTargetId = "editdata", InsertionMode = InsertionMode.Replace, OnSuccess = "updateExperience()" })
+          | @Ajax.ActionLink("DeleteExperience", "DeleteExperience", new { id = item.ID }, new AjaxOptions { HttpMethod = "Get", InsertionMode = InsertionMode.Replace, UpdateTargetId = "experience"})
+            
+
+        </p>
+    </div>
+        }
+

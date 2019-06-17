@@ -1,0 +1,144 @@
+﻿@model IEnumerable<LastLinkedin.Models.Post>
+@using Microsoft.AspNet.Identity;
+@using Microsoft.AspNet.Identity.Owin;
+@using System.Web;
+
+@{ var x = 0;}
+
+
+
+@foreach (var item in Model)
+{
+    x = x + 1;
+<div class="col-md-12" style="border:1px solid lightgrey;z-index:1;background-color:white" id="pstlength">
+
+    <div>
+
+        @if (item.UserId == System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId())?.Id)
+        {
+            <div class="dropdown fa fa-ellipsis-h btn editanddelete" style="position:absolute;top:2%;right:5%" onclick="show()">
+                <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel" id="uli">
+                    <li style="color:black">
+                        @Ajax.ActionLink("  Edit Post", "Edit", "Home", new { id = item.ID }, new AjaxOptions() { HttpMethod = "Get", UpdateTargetId = "editmodalbody", InsertionMode = InsertionMode.Replace, OnSuccess = "myfun2()" }, new { @class = "fas fa-pencil-alt hvr2" })
+                    </li>
+                    <li>
+
+                        @Ajax.ActionLink("  Delete Post", "Delete", "Home", new { id = item.ID }, new AjaxOptions() { HttpMethod = "Get", UpdateTargetId = "pos", InsertionMode = InsertionMode.Replace }, new { @class = "fa fa-trash hvr2", @onclick = "return confirm('Are you sure you want to permanently remove this post from LinkedIn?')" })
+
+                    </li>
+                </ul>
+
+            </div>
+        }
+        else
+        {
+            <div class="dropdown fa fa-ellipsis-h btn editanddelete" style="position:absolute;top:2%;right:5%" onclick="show()">
+                <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel" id="uli">
+                    <li style="color:black">
+                        @Ajax.ActionLink("  Hide this Post", "Hide", "Home", new { id = item.ID }, new AjaxOptions() { HttpMethod = "Get", UpdateTargetId = "pos", InsertionMode = InsertionMode.Replace }, new { @class = "fa fa-eye-slash hvr2" })
+                    </li>
+
+                </ul>
+
+            </div>
+
+        }
+        <img src="~/Resources/anonymous.jpg" style="width: 50px;height: 40px;border-radius: 50%;position: absolute;top:2%;left: 2%;">
+
+        <span style="position:absolute;top:2%;left:12%;margin-bottom:3%;margin-top: 2%;">@Html.Label(item.User.firstName+' '+item.User.lastName, item.User.firstName + ' ' + item.User.lastName)</span>
+
+        <br />
+    </div>
+
+    <hr style="margin-top:5%" />
+
+    <div class="form-group col-md-11" style="margin:5%">
+
+        @Html.Label(item.Description, item.Description)
+
+        <br />
+    </div>
+    <hr />
+
+    <div style="left:10%;bottom:8%;margin:5%" class="editpost">
+        @*@if (item.Likes != null && item.Likes.ToList().Count() == 0)
+            {
+                <span style="display:none">0</span>
+                <span style="display:none"> Like</span>
+            }*@
+
+        @*else if (item.Likes != null && item.Likes.ToList().Count() == 1)
+            {
+                <span id="numlk" style="display:inline-block;position:absolute;bottom:100%;left:5%;color:silver">@item.Likes.ToList().Count</span>
+                <span id="lk" style="display:inline-block;position:absolute;bottom:100%;left:%;color:silver"> Like</span>
+            }*@
+        @*@if (item.Likes != null && item.Likes.ToList().Count() != 0)*@
+        <div style="margin:3%">
+            @if (item.Likes != null && item.Likes.ToList().Count() > 0)
+
+            {
+                @Ajax.ActionLink(@item.Likes.ToList().Count.ToString() + " " + "Likes", "DetailsLike", "Home", new { id = item.ID }, new AjaxOptions() { HttpMethod = "Get", UpdateTargetId = "detailsmodalbody", InsertionMode = InsertionMode.Replace, OnSuccess = "myfun3(this)" }, new { @class = "silverkbg" })
+
+            }
+
+
+            @if (item.Comments != null && item.Comments.ToList().Count() > 0)
+
+            {
+                @Ajax.ActionLink(" . " + @item.Comments.ToList().Count.ToString() + " " + "Comments", "DetailsComment", "Home", new { id = item.ID }, new AjaxOptions() { HttpMethod = "Get", UpdateTargetId = "cms" + @x, InsertionMode = InsertionMode.Replace }, new { @class = "silverkbg commentshow", @onclick = "ShowTextComment2()" })
+
+
+            }
+        </div>
+
+
+
+        @if (item.Likes != null && item.Likes.FirstOrDefault(l => l.PublishedID == System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId())?.Id) != null)
+        {
+            @Ajax.ActionLink("  Like", "AddLike", "Home", new { id = item.ID }, new AjaxOptions() { HttpMethod = "Get", UpdateTargetId = "pos", InsertionMode = InsertionMode.Replace }, new { @class = "far fa-hand-point-left btn btn-light hvrlk" })
+
+        }
+        else
+        {
+            @Ajax.ActionLink("  Like", "AddLike", "Home", new { id = item.ID }, new AjaxOptions() { HttpMethod = "Get", UpdateTargetId = "pos", InsertionMode = InsertionMode.Replace }, new { @class = "far fa-hand-point-left btn btn-light hvr" })
+
+        }
+
+
+        <i class="fa fa-comment btn btn-light hvr btncomment" onclick="ShowTextComment()">   Comment</i>
+
+
+        <i class="fa fa-share btn btn-light hvr">   Share</i>
+    </div>
+
+    <div class="col-md-11 txtcomment" style="display:none">
+        <img src="~/Resources/anonymous.jpg" style="width: 50px;height: 40px;border-radius: 50%;position:absolute;bottom:0%;left:0%">
+        @*<textarea type="text" id="Description" rows="1" onkeyup="manage2(this)" style="max-width:100%;padding:0 18%;position:absolute;left:11%;bottom:12%;"></textarea>
+            <br />
+            <div class="col-md-offset-2 col-md-10" style="display:none; position:absolute;right:4%">
+                @Ajax.ActionLink("  Post", "AddComment", "Home", new { id = item.ID }, new AjaxOptions() { HttpMethod = "Post", UpdateTargetId = "pos", InsertionMode = InsertionMode.Replace }, new { @class = "btn btn-info hvrcomment" })
+
+            </div>*@
+        @using (Ajax.BeginForm("AddComment", "Home", new { id = item.ID }, new AjaxOptions() { HttpMethod = "Post", UpdateTargetId = "pos", InsertionMode = InsertionMode.Replace }))
+        {
+            <textarea type="text" id="msg" name="Description" rows="1" onkeyup="manage2(this)" style="max-width:100%;padding:0 20%;position:absolute;left:11%;bottom:12%;border-radius:50px"></textarea>
+
+            <br />
+            <div class="col-md-offset-2 col-md-12" style="display:none;right:2%">
+                <input type="submit" value="Post" class="btn btn-info hvrcomment" />
+            </div>
+        }
+
+
+    </div>
+    <div id=@("cms"+@x) style="padding-bottom: 3%;">
+
+    </div>
+
+</div>
+   
+
+    <br />
+
+}
+

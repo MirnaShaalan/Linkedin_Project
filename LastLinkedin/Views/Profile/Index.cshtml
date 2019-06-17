@@ -1,0 +1,171 @@
+﻿@model LastLinkedin.Models.ApplicationUser
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Profile.cshtml";
+}
+@section updateinfo{
+    <a href="#" style="text-decoration:none">
+        <i class="fas fa-pen" data-toggle="modal" data-target="#updateinfomodal" style="position:absolute; right:40px;"></i>
+    </a>
+}
+
+@section userdata{
+    <div id="data">
+        @Html.Action("GetData", new { id = Model.Id })
+
+
+
+    </div>
+}
+
+@section addexperience{
+    <a href="#" style="position:absolute; right:20px;">
+        <i class="fas fa-plus" data-toggle="modal" data-target="#addExperience"></i>
+    </a>
+
+
+}
+
+@section experience{
+
+
+    <div id="experience">
+
+
+        @Html.Action("GetExperiences", new { id = Model.Id })
+
+    </div>
+}
+@section recomds{
+    <input type="button" value="Recommend someone" class="btn btn-secondary" data-target="#createRecommendationModal" data-toggle="modal" style="margin:5px 5px"/>
+    @*<input type="button" value="AskForRecommendation" class="btn btn-secondary" style="margin:5px 5px" />*@
+}
+
+@section Recommendations{
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Recieved</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Given</a>
+        </li>
+
+    </ul>
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="recieved" role="tabpanel" aria-labelledby="home-tab">@Html.Action("RecievedRecommendation")</div>
+        <div class="tab-pane fade" id="given" role="tabpanel" aria-labelledby="profile-tab">
+       @*     @Html.Action("GivenRecommendation")*@
+        </div>
+    </div>
+}
+@*@using(Ajax.BeginForm("GetuserData","Profile",new AjaxOptions { HttpMethod="Get",UpdateTargetId="data",InsertionMode=InsertionMode.Replace}))*@
+@*{
+
+    }*@
+<div id="updateinfomodal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" style="float:left">Update info</h4>
+            </div>
+            <div class="modal-body" id="updateinfo">
+                @Html.Partial("Editintro")
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="addExperience" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" style="float:left">Update info</h4>
+            </div>
+            <div class="modal-body" id="updateinfo">
+                @Html.Action("AddExperience")
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<div class="modal fade" id="editExperiencemodal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Edit Experience</h4>
+            </div>
+            <div class="modal-body" id="editdata">
+            
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="createRecommendationModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" style="float:left">Create Recommendation</h4>
+            </div>
+            <div class="modal-body" id="updateinfo">
+                @Html.Action("CreateRecommendation",new { id = Model.Id })
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+@section scripts{
+    <script>
+        function editintro() {
+            $("#updateinfomodal").modal("toggle");
+        }
+
+        function addExperiencefun() {
+            $("#addExperience").modal("toggle");
+        }
+
+        function updateExperience() {
+            $("#editExperiencemodal").modal("toggle");
+        }
+
+        function createRecommendfun() {
+            $("#createRecommendationModal").modal("toggle");
+        }
+
+
+    </script>
+}

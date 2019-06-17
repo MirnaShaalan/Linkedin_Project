@@ -1,0 +1,87 @@
+﻿
+@model  IEnumerable<LastLinkedin.Models.ApplicationUser>
+@using Microsoft.AspNet.Identity
+@using System.Threading;
+@using System.Security.Claims;
+
+
+
+@{ var t = 0; }
+
+@foreach (var item in Model)
+{
+    t++;
+    /** <tr>
+         <td>@item.Title</td>
+         <td>@item.Description</td>
+
+
+
+     </tr>**/
+}
+
+@{
+
+    // var nums = Enumerable.ToArray();
+    string[] nums = new string[t];
+
+
+}
+
+
+<div class="card card-inv">
+    <div class="card-header">
+        <p class="lead">Invitations</p>
+
+        @{ var w = 0;}
+
+    </div>
+    @foreach (var item in Model)
+    {
+        int pos = Array.IndexOf(nums, item.Id);
+        if (pos == -1)
+        {
+            <div class="card-body">
+
+                <div class="invitation">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div style="width:100px;height:100px">
+                                <img src="~/Resources/anonymous.jpg" class="img-fluid rounded-circle">
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4">
+                            <h5 style="margin-top: 10px;margin-left: -20px;">
+
+                                @item.firstName
+                            </h5>
+                            <p class="lead" style="margin-top: 7px;margin-left: -20px;">Trainee at ITI Ismailia Branch</p>
+
+                        </div>
+
+
+                        <div class="col-sm-5" style="margin-top: 30px">
+                            <button class="btn" style="color:#444 !important" onclick="myFun1();">Ignore</button>
+                            @using (Ajax.BeginForm("Invitations", "MyNetwork", new AjaxOptions { HttpMethod = "POST" }, new { onsubmit = "myFun1();" }))
+                            {
+                                <input type="hidden" name="Id" value="@item.Id" />
+                                <button class="btn btn-default" id="btn-inv" onclick="myFun1();">Accept</button>
+
+                            }
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            nums[w] = @item.Id;
+            w++;
+
+        }
+    }
+
+
+</div>
+

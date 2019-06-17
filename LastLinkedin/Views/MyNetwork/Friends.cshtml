@@ -1,0 +1,75 @@
+﻿
+@model  IEnumerable<LastLinkedin.Models.ApplicationUser>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section id="team" class="pb-5" style=" margin-bottom:20px">
+    <h4 style="font-size:20px; font-family:Arial,sans-serif; color:#808080; align-content:center; text-align:center;  padding-top:10px;">Your Connections</h4>
+    @{ var t = 0; }
+
+    @foreach (var item in Model)
+    {
+        t++;
+        /** <tr>
+             <td>@item.Title</td>
+             <td>@item.Description</td>
+
+
+
+         </tr>**/
+    }
+
+    @{
+
+        // var nums = Enumerable.ToArray();
+        string[] nums = new string[t];
+
+
+    }
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="people" role="tabpanel" aria-labelledby="people-tab">
+            <div class="row">
+                @{ var w = 0;}
+                @foreach (var item in Model)
+                {
+                    int pos = Array.IndexOf(nums, item.Id);
+                    if (pos == -1)
+                    {
+                        <div class="col-sm-4 card-element" style=" padding:18px; ">
+                            <div class="Card">
+                                <div class="user_image">
+                                    <img src="~/Resources/anonymous.jpg" width="100" height="100" style="z-index:9999999" alt="User Image" class="rounded-circle">
+                                </div>
+
+                                <div class="user_description">
+                                    <h2>@item.firstName <span>@item.lastName</span></h2>
+                                    <h3>Backend web developer</h3>
+                                </div>
+
+                                <div class="mutual_friends">
+
+                                </div>
+
+                                @using (Ajax.BeginForm("Recommendations", "MyNetwork", new AjaxOptions { HttpMethod = "POST" }, new { onsubmit = "myFun();" }))
+                                {
+                                    <input type="hidden" name="Id" value="@item.Id" />
+
+
+                                }
+
+                            </div>
+                        </div>
+                        nums[w] = @item.Id;
+                        w++;
+
+                    }
+
+                }
+
+
+            </div>
+        </div>
+    </div>
+</section>

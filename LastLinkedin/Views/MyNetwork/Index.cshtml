@@ -1,0 +1,388 @@
+﻿@model IEnumerable<LastLinkedin.Models.ApplicationUser>
+
+@using Microsoft.AspNet.Identity;
+@using System.Threading;
+@using System.Security.Claims;
+
+
+@{
+                /**/
+
+                /**/
+
+                ViewBag.Title = "My Network";
+                var count = 0;
+}
+
+
+<link href="~/Resources/StyleNetwork.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+@*<script src="~/Scripts/Network.js"></script>*@
+
+<div class="container">
+
+    <div class="row">
+
+        <!-- begin Left Bar -->
+        <div class="col-sm-3 left-sidebar">
+
+            <div class="list-group">
+
+                <a href="/MyNetwork/Friends" class="list-group-item list-group-item-action">Connections (@Html.Action("Count"))</a>
+                <a href="#" class="list-group-item list-group-item-action">Companies (15)</a>
+                <a href="#" class="list-group-item list-group-item-action">Groups (2)</a>
+                <a href="#" class="list-group-item list-group-item-action">Hashtags (3)</a>
+
+                <!-- <div class="list-group-item">Add personal contacts
+                    <div class="por1">
+                        <div class="panel-body">Karim8703@gmail.com</div>
+                    </div>
+                    <br>
+                    <div class="por2">
+                        <a href="#">Continue</a>
+                    </div>
+                </div> -->
+
+            </div>
+
+        </div>
+
+        <!-- End Left Bar -->
+        <!-- begin center -->
+        <div class="col-sm-6">
+            <!-- Begin Invitations -->
+            @Html.Action("Invitations")
+
+            @*<div class="card">
+                    <div class="card-header">
+                        <p class="lead">Invitations</p>
+
+                    </div>
+
+                    <div class="card-body">
+
+                        <div class="invitation">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <div style="width:100px;height:100px">
+                                        <img src="~/Resources/anonymous.jpg" class="img-fluid rounded-circle">
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <h5 style="margin-top: 10px;margin-left: -20px;">
+                                        @IdentityExtensions.FindFirstValue(((ClaimsIdentity)ViewBag.invUser.Identity), "firstName")
+                                        @IdentityExtensions.FindFirstValue(((ClaimsIdentity)ViewBag.invUser.Identity), "lastName")
+                                    </h5>
+                                    <p class="lead" style="margin-top: 7px;margin-left: -20px;">Trainee at ITI Ismailia Branch</p>
+
+                                </div>
+
+
+                                <div class="col-sm-5" style="margin-top: 30px">
+                                    <button class="btn" style="color:#444 !important">Ignore</button>
+                                    <button class="btn btn-default">Accept</button>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+
+                </div>*@
+            <!-- End Invitations -->
+            <!-- Begin Recommended -->
+            <div class="card">
+
+                <div class="card-header">
+                    <p class="lead">Recommended For You</p>
+                </div>
+
+                <!--Begin Recommend Sections tabs -->
+                <div>
+
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="people-tab" data-toggle="tab" href="#people" role="tab" aria-controls="people" aria-selected="true">People</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="companies-tab" data-toggle="tab" href="#companies" role="tab" aria-controls="companies" aria-selected="false">Companies</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="groups-tab" data-toggle="tab" href="#groups" role="tab" aria-controls="groups" aria-selected="false">Groups</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="hashtags-tab" data-toggle="tab" href="#hashtags" role="tab" aria-controls="hashtags" aria-selected="false">Hashtags</a>
+                        </li>
+                    </ul>
+
+
+                    @Html.Action("Recommendations");
+
+                    @*@{ var t = 0; }
+
+                                @foreach (ApplicationUser item in ViewBag.L)
+                                {
+                                    t++;
+                                    /** <tr>
+                                         <td>@item.Title</td>
+                                         <td>@item.Description</td>
+
+
+
+                                     </tr>**/
+                                }
+
+                                @{
+
+                                    // var nums = Enumerable.ToArray();
+                                    string[] nums = new string[t];
+
+
+                                }
+                                <div class="tab-content" id="myTabContent">
+                                    <div class="tab-pane fade show active" id="people" role="tabpanel" aria-labelledby="people-tab">
+                                        <div class="row">
+                                            @{ var w = 0;}
+                                            @foreach (ApplicationUser item in ViewBag.L)
+                                            {
+                                                int pos = Array.IndexOf(nums, item.Id);
+                                                if (pos == -1)
+                                                {
+                                                    <div class="col-sm-4 card-element">
+                                                        <div class="Card">
+                                                            <div class="user_image">
+                                                                <img src="~/Resources/anonymous.jpg" width="100" height="100" style="z-index:9999999" alt="User Image" class="rounded-circle">
+                                                            </div>
+
+                                                            <div class="user_description">
+                                                                <h2>@item.firstName <span>@item.lastName</span></h2>
+                                                                <h3>Backend web developer</h3>
+                                                            </div>
+
+                                                            <div class="mutual_friends">
+                                                                <p class="text-danger">
+                                                                    <span> 30 </span> mutaual friends
+                                                                </p>
+                                                            </div>
+
+                                                            @using (Ajax.BeginForm("Recommendations", "MyNetwork", new AjaxOptions { HttpMethod = "POST" }, new { onsubmit = "myFun();" }))
+                                                            {
+                                                                <input type="hidden" name="Id" value="@item.Id" />
+                                                                <button type="submit" class="btn btn-default btn-block" id="btn-remove">Connect</button>
+
+                                                            }
+
+                                                        </div>
+                                                    </div>
+                                                    nums[w] = @item.Id;
+                                                    w++;
+
+                                                }
+
+                                            }
+
+
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="companies" role="tabpanel" aria-labelledby="companies-tab">
+                                        <div role="tabpanel" class="tab-pane" id="companies">
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <div class="Card">
+                                                        <div class="user_image">
+                                                            <img src="~/Resources/mark.jpg" width="100" height="100" style="z-index:9999999" alt="Company Image">
+                                                        </div>
+
+                                                        <div class="user_description">
+                                                            <h2>Karim Muhammed</h2>
+                                                            <h3>Backend web developer</h3>
+                                                        </div>
+
+                                                        <div class="mutual_friends">
+                                                            <p class="text-danger">
+                                                                <span> 30 </span> mutaual friends
+                                                            </p>
+                                                        </div>
+
+                                                        <a class="btn btn-default btn-block ">Connect</a>
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="Card">
+                                                        <div class="user_image">
+                                                            <img src="~/Resources/mark.jpg" width="100" height="100" style="z-index:9999999" alt="Company Image">
+                                                        </div>
+
+                                                        <div class="user_description">
+                                                            <h2>Ahmed Muhammed</h2>
+                                                            <h3>Backend web developer</h3>
+                                                        </div>
+
+                                                        <div class="mutual_friends">
+                                                            <p class="text-danger">
+                                                                <span> 30 </span> mutaual friends
+                                                            </p>
+                                                        </div>
+
+                                                        <a class="btn btn-default btn-block ">Connect</a>
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="Card">
+                                                        <div class="user_image">
+                                                            <img src="~/Resources/mark.jpg" width="100" height="100" style="z-index:9999999" alt="Company Image">
+                                                        </div>
+
+                                                        <div class="user_description">
+                                                            <h2>Ahmed Ali</h2>
+                                                            <h3>Backend web developer</h3>
+                                                        </div>
+
+                                                        <div class="mutual_friends">
+                                                            <p class="text-danger">
+                                                                <span> 30 </span> mutaual friends
+                                                            </p>
+                                                        </div>
+
+                                                        <a class="btn btn-default btn-block ">Connect</a>
+
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="col-sm-4">
+                                                    <div class="Card">
+                                                        <div class="user_image">
+                                                            <img src="~/Resources/mark.jpg" width="100" height="100" style="z-index:9999999" alt="Company Image">
+                                                        </div>
+
+                                                        <div class="user_description">
+                                                            <h2>Karim Muhammed</h2>
+                                                            <h3>Backend web developer</h3>
+                                                        </div>
+
+                                                        <div class="mutual_friends">
+                                                            <p class="text-danger">
+                                                                <span> 30 </span> mutaual friends
+                                                            </p>
+                                                        </div>
+
+                                                        <a class="btn btn-default btn-block ">Connect</a>
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="Card">
+                                                        <div class="user_image">
+                                                            <img src="~/Resources/mark.jpg" width="100" height="100" style="z-index:9999999" alt="Company Image">
+                                                        </div>
+
+                                                        <div class="user_description">
+                                                            <h2>Ahmed Muhammed</h2>
+                                                            <h3>Backend web developer</h3>
+                                                        </div>
+
+                                                        <div class="mutual_friends">
+                                                            <p class="text-danger">
+                                                                <span> 30 </span> mutaual friends
+                                                            </p>
+                                                        </div>
+
+                                                        <a class="btn btn-default btn-block ">Connect</a>
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="Card">
+                                                        <div class="user_image">
+                                                            <img src="~/Resources/mark.jpg" width="100" height="100" style="z-index:9999999" alt="Company Image">
+                                                        </div>
+
+                                                        <div class="user_description">
+                                                            <h2>Ahmed Ali</h2>
+                                                            <h3>Backend web developer</h3>
+                                                        </div>
+
+                                                        <div class="mutual_friends">
+                                                            <p class="text-danger">
+                                                                <span> 30 </span> mutaual friends
+                                                            </p>
+                                                        </div>
+
+                                                        <a class="btn btn-default btn-block ">Connect</a>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="groups" role="tabpanel" aria-labelledby="groups-tab">Groups</div>
+                                    <div class="tab-pane fade" id="hashtags" role="tabpanel" aria-labelledby="hashtags-tab">Hashtags</div>
+
+                                </div>
+
+                            </div>
+                            <!-- End Recommend Sections tabs -->
+
+                        </div>
+                        <!-- End Recommended -->*@
+                </div>
+            </div>
+        </div>
+        <!-- End center -->
+        <!-- begin Right Bar -->
+        <div class="col-sm-3 right-sidebar">
+
+            <a href="#">
+                <img src="~/Resources/adv.jpg" class="img-responsive" style="width:350px;height:200px;">
+            </a>
+            <hr>
+            <div>
+
+
+                <ul class="box3 list-unstyled">
+
+                    <li><a href="">About</a></li>
+                    <li><a href="">Help Center</a></li>
+                    <li><a href="">Advertising</a></li>
+                    <li style="color: black">LinkedIn Corporation © 2019</li>
+                </ul>
+            </div>
+        </div>
+        <!-- End Right Bar -->
+    </div>
+
+</div>
+@section Scripts
+{
+    <script>
+
+        function myFun() {
+            $('#btn-remove').on('click', function (event) {
+                event.preventDefault();
+                $(this).closest(".card-element").fadeOut(500, function () {
+                    $(this).remove();
+                });
+            });
+
+        }
+
+        function myFun1() {
+            $('#btn-inv').on('click', function (event) {
+                event.preventDefault();
+                $(this).closest(".card-body").fadeOut(500, function () {
+                    $(this).remove();
+                });
+            });
+
+        }
+
+    </script>
+
+}

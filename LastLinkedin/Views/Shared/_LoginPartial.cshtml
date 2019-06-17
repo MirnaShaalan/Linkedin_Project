@@ -1,0 +1,92 @@
+﻿@model LastLinkedin.Models.ApplicationUser
+
+@using Microsoft.AspNet.Identity
+@using System.Threading;
+@using System.Security.Claims;
+
+
+
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right mt-6", style = "margin-left:-240px;" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <ul class="navbar-nav mr-auto mb-2">
+            <li class="nav-item" style="line-height: 80%; margin-bottom:5px; margin-right:20px;">
+                <a>
+                    <i class="fas fa-home fa-lg" style="text-align:center; margin-left:15px; margin-top:30px; margin-bottom:-5px;"></i>
+                    @Html.ActionLink("Home", "Feeds", "Home", new { id = Model.Id }, htmlAttributes: new { @class = "nav-link", style = "color:white;display:block;white-space: initial;" })
+                </a>
+            </li>
+            <li class="nav-item" style="line-height: 80%; margin-bottom:5px; margin-right:20px;">
+                <i class="fas fa-user-friends fa-lg" style="text-align:center; margin-left:30px; margin-top:30px; margin-bottom:-5px;"></i>
+                <a>@Html.ActionLink("My Network", "Index", "MyNetwork", new { id = Model.Id }, htmlAttributes: new { @class = "nav-link", style = "color:white;display:block;white-space: initial;" })</a>
+            </li>
+            <li class="nav-item" style="line-height: 80%; margin-bottom:5px; margin-right:20px;">
+                <i class="fas fa-briefcase fa-lg" style="text-align:center; margin-left:13px; margin-top:30px; margin-bottom:-5px;"></i>
+                <a>@Html.ActionLink("Jobs", "Index", "Jobs", new { id = Model.Id }, htmlAttributes: new { @class = "nav-link", style = "color:white; display:block;white-space: initial;" })</a>
+            </li>
+            <li class="nav-item" style="line-height: 80%; margin-bottom:5px; margin-right:20px;">
+                <i class="fas fa-envelope fa-lg" style="text-align:center; margin-left:30px; margin-top:30px; margin-bottom:-5px;"></i>
+                <a>@Html.ActionLink("Messaging", "Index", "Message", new { id = Model.Id }, htmlAttributes: new { @class = "nav-link", style = "color:white; display:block;white-space: initial;" })</a>
+            </li>
+            @*<li class="nav-item">
+                    <a>@Html.ActionLink(User.Identity.GetUserName(), "Index", "Manage", routeValues: null, htmlAttributes: new { @class = "nav-link", style = "color:white;" })</a>
+                </li>*@
+            <li class="nav-item dropdown" style="line-height: 80%; margin-bottom:5px; margin-right:20px;">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <img src="~/Resources/anonymous.jpg" alt="dropdown image" class="img-responsive" style="border:1px solid black;border-radius:50%;height:30px;width:30px; display:block; background-color:transparent;margin-top:19px;margin-left:-5px;">
+                    @*<span class="caret"></span>*@
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="margin-left:-85px;">
+                    <a href="@Url.Action("Index", "Profile", new { id = Model.Id })" class="dropdown-item">
+                        @*<img src="~/Resources/anonymous.jpg" style="border:1px solid black;border-radius:50%;height:30px;width:30px; display:block; background-color:transparent;margin-top:19px;margin-left:-5px;">*@
+                        <div>
+                            <div style="position:relative;vertical-align:middle">
+                                <img src="~/Resources/anonymous.jpg"
+                                     style="border:1px solid black;border-radius:50%;height:30px;width:30px;margin-left:65px;display:block;" />
+                            </div>
+                            <div class="container"
+                                 style="display:table-cell;position:relative;vertical-align:middle;width:25%; text-align:center;">
+                                <h3 style="font-size:small; line-height: 2;">
+                                    @IdentityExtensions.FindFirstValue(((ClaimsIdentity)User.Identity), "firstName")
+                                    @IdentityExtensions.FindFirstValue(((ClaimsIdentity)User.Identity), "lastName")
+                                </h3>
+                                <h5 style="color:rgba(0,0,0,.6);font-size:smaller;margin-top:-3px;">
+                                    Full-Stack Developer
+                                </h5>
+                            </div>
+                        </div>
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="javascript:document.getElementById('logoutForm').submit()" style="text-decoration:none;text-align:center; display:block;color:black;"> Log out</a>
+                </div>
+            </li>
+            <li class="nav-item" style="line-height: 80%; margin-bottom:5px; margin-right:20px;">
+                <i class="fas fa-search" style="text-align:center; margin-left:18px; margin-top:30px; margin-bottom:-5px;"></i>
+                <a>@Html.ActionLink("Search", "Index", "Search", null, htmlAttributes: new { @class = "nav-link", style = "color:white; display:block;white-space: initial;" })</a>
+            </li>
+        </ul>
+
+    }
+}
+else
+{
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { @class = "btn btn-light", style = "color:#0073b1;", id = "loginLink" })</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+}

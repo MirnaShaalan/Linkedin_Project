@@ -1,0 +1,30 @@
+﻿@model IEnumerable<LastLinkedin.Models.ApplicationUser>
+@using LastLinkedin.Models;
+
+@{
+    ApplicationDbContext context = new ApplicationDbContext();
+}
+@foreach (var item in Model)
+{
+
+  
+    <div class="chat_list">
+
+        <div class="chat_people">
+            <div class="chat_img"> <img src="~/Resources/anonymous.jpg"></div>
+            <div class="chat_ib">
+                <h5>
+                    
+                    @Ajax.ActionLink(item.firstName+' ' +item.lastName, "GetMsgUser", "Message", new { Rid = item.Id}, new AjaxOptions() { HttpMethod = "Get", UpdateTargetId = "msg_history", InsertionMode = InsertionMode.Replace })
+
+                    @*<span class="chat_date">@item.Date</span>*@
+                </h5>
+                @*<p>
+                    @item.Msg
+                </p>*@
+            </div>
+        </div>
+    </div>
+
+
+}

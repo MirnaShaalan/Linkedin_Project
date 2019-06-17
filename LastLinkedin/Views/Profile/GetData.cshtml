@@ -1,0 +1,42 @@
+﻿@using Microsoft.AspNet.Identity
+@using System.Threading;
+@using System.Security.Claims;
+
+@model LastLinkedin.Models.ApplicationUser
+
+@using (Ajax.BeginForm("GetData", "Profile", new AjaxOptions { HttpMethod = "Get", UpdateTargetId = "data", InsertionMode = InsertionMode.Replace }))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="col-md-12" style="width:200%;height:200%">
+            <label style="font-weight:bold;font-size:large;line-height:1.5;display:block">
+
+
+                @Model.firstName  @Model.lastName
+
+            </label>
+
+            @if (Model.UserJobs.FirstOrDefault(j => j.UserID == Model.Id) !=null&& Model.UserJobs.FirstOrDefault(j => j.UserID == Model.Id).Job!=null&& Model.UserJobs.FirstOrDefault(j => j.UserID == Model.Id).Job.Title!=null)
+            {
+                <label style="font-weight:400;display:block">
+                    @Model.UserJobs.FirstOrDefault(j => j.UserID == Model.Id).Job.Title
+                </label>
+            }
+            @if (Model.Address != null)
+            {
+                <label style="font-weight:100;display:block">
+                    @Model.Address.Country
+                </label>
+            }
+
+            @*@Model.Address.city*@
+            @*@Html.LabelFor(modeld => Model.Address.city)*@
+            @*@IdentityExtensions.FindFirstValue((ClaimsIdentity)User.Identity,"Address")*@
+
+
+        </div>
+
+    </div>
+}
+

@@ -1,0 +1,331 @@
+﻿@{
+    ViewBag.Title = "Home";
+}
+<br />
+<br />
+@using Microsoft.AspNet.Identity;
+@using Microsoft.AspNet.Identity.Owin;
+@using System.Web;
+@{
+    var user=System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+}
+
+<link href="~/Resources/StyleNetwork.css" rel="stylesheet" />
+
+<div class="row">
+    <div class="col-md-3">
+        <div class="Card">
+            <div class="user_image">
+                <img src="~/Resources/anonymous.jpg" width="100" height="100" style="z-index:9999999" alt="user Image" class="rounded-circle">
+            </div>
+
+            <div class="user_description">
+                <a  href="@Url.Action("Index", "Profile", new {id=user.Id })">@user.firstName @user.lastName</a>
+
+                <h3>Full-Stack Developer</h3>
+            </div>
+            <hr />
+            <div >
+                <a href="#" style="color:dimgray">
+                    <p>
+                        Connections<br />
+                        <b>Grow your network</b>
+                    </p> 
+                </a>
+                <a href="#" style="color:dimgray">
+                    <p>
+                        Who's viewed your profile
+                    </p>
+                </a>
+            </div>
+            <hr />
+            <p>
+                Access exclusive tools & insights <br />
+                <a href="#" style="text-decoration:none">Try Premium Free for 1 Month</a>
+            </p>
+
+        </div>
+        <div class="card">
+            <div class="list-group">
+                <font size="2"><a href="#" class="list-group-item list-group-item-action" style="color:blueviolet">Groups</a></font>
+                <font size="2"><a href="#" class="list-group-item list-group-item-action" style="color:blueviolet">Followed Hashtags</a></font>
+                <font size="2"><a href="#" class="list-group-item list-group-item-action" style="text-align:center">Discover more</a></font>
+            </div>
+            </div>
+    </div>
+
+
+    <div class="col-md-6">
+        <div style="z-index:1;">
+            <ul class="list-group list-group-horizontal-md" style="height:200%">
+                <li class="list-group-item  col-md-8 hrp">
+                    <a href="" data-toggle="modal" data-target="#createmodal"> <i class="far fa-edit"></i>  Start a Post</a>
+                </li>
+                <li class="list-group-item  col-md-2 hvr" for="upload">
+                    <span class="fas fa-camera" aria-hidden="true"></span>
+                    <input type="file" accept="image/*" style="display:none" id="upload" />
+                </li>
+
+                <li class="list-group-item  col-md-2 hvr" for="upload2">
+                    <span class="fas fa-fas fa-video" aria-hidden="true"></span>
+                    <input type="file" accept="video/*" style="display:none" id="upload" />
+                </li>
+            </ul>
+
+            <ul class="list-group list-group-horizontal-md">
+                <li class="list-group-item col-md-12" style="background-color:whitesmoke">
+                    <a href="">Write an article</a> on LinkdIn
+                </li>
+            </ul>
+        </div>
+
+        
+            <hr />
+
+            <div id="pos">
+                @Html.Action("GetAll")
+            </div>
+        </div>
+
+
+        <div class="col-md-3">
+
+            <a href="@Url.Action("Index", "Jobs", null)">
+                <img src="~/Resources/advpic2.jpg" class="img-responsive" style="width:350px;height:300px;">
+            </a>
+            <hr>
+            <div>
+
+
+                <ul class="box3 list-unstyled">
+
+                    <li><a href="">About</a></li>
+                    <li><a href="">Help Center</a></li>
+                    <li><a href="">Advertising</a></li>
+                    <li style="color: black">LinkedIn Corporation © 2019</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+<div class="modal fade" id="createmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color:darkblue">
+                <h5 class="modal-title text-black-50" id="exampleModalLabel"><img src="~/Resources/anonymous.jpg" style="width: 50px;height: 40px;border-radius: 50%;position: absolute;top:10%;right: 48%;"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+
+                @Html.Partial("Create")
+
+            </div>
+            <div class="modal-footer" style="padding-bottom: 10%;">
+                <button type="button" class="btn btn-danger" data-dismiss="modal" style="right: 5%;top: 86%;position: absolute;width: 13%;">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="Editmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color:darkblue">
+                <h5 class="modal-title text-black-50" id="exampleModalLabel"><img src="~/Resources/anonymous.jpg" style="width: 50px;height: 40px;border-radius: 50%;position: absolute;top:10%;right: 48%;"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="editmodalbody">
+
+
+            </div>
+            <div class="modal-footer" style="padding-bottom: 10%;">
+                <button type="button" class="btn btn-danger" data-dismiss="modal" style="right: 5%;bottom: 8.8%;position: absolute;width: 13%;">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="detailsmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-black-50" id="exampleModalLabel">Likes</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="detailsmodalbody">
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+@section Scripts
+{
+    <script>
+        function myfun() {
+            $("#createmodal").modal("toggle");
+        }
+        //----------------------------------------------------------------------------------------------------------------------------------------
+        function myfun2() {
+            $("#Editmodal").modal("toggle");
+        }
+        //-------------------------------------------------------------------------------------------------------------------------
+        function myfun3(txt) {
+            $("#detailsmodal").modal("toggle");
+            //document.getElementById('exampleModalLabel').innerHTML(txt);
+
+        }
+        //-----------------------------------------------------------------------------------------------------------------------
+        function manage(txt) {
+            var bt = document.getElementById('pst');
+            if (txt.value != '') {
+                bt.disabled = false;
+            }
+            else {
+                bt.disabled = true;
+
+            }
+        }
+        //----------------------------------------------------------------------------------------------------------------
+        function manage2(txt) {
+            console.log($(event.currentTarget.nextElementSibling.nextElementSibling));
+            if (txt.value != '') {
+                $(event.currentTarget.nextElementSibling.nextElementSibling).show();
+            }
+            else {
+                $(event.currentTarget.nextElementSibling.nextElementSibling).hide();
+
+            }
+
+        }
+        //------------------------------------------------------------------------------------------------------------------
+        function show() {
+            var flag = 1;
+            //var eventdata = document.querySelectorAll('#uli');
+            let eventname = document.querySelectorAll(".editanddelete");
+            eventname.forEach(function (item) {
+                item.onclick = function () {
+                    if (flag == 1) {
+                        this.childNodes[1].style.display = "block";
+                        flag = 0;
+                    }
+                    else if (flag == 0) {
+                        this.childNodes[1].style.display = "none";
+                        flag = 1;
+                    }
+
+                }
+            })
+
+            //var x = document.getElementById("uli");
+            //if (x.style.display === "none") {
+            //    x.style.display = "block";
+            //} else {
+            //    x.style.display = "none";
+            //}
+        }
+        //------------------------------------------------------------------------------------------------------------------
+        function ShowTextComment() {
+            let eventname = document.querySelectorAll(".btncomment");
+            eventname.forEach(function (item) {
+                item.onclick = function () {
+                    $(this).parent().next('.txtcomment').show();
+
+
+                }
+            })
+
+        }
+        //-------------------------------------------------------------------------------------------------------------
+        function ShowTextComment2() {
+            let eventname = document.querySelectorAll(".commentshow");
+            eventname.forEach(function (item) {
+                console.log(item)
+                item.onclick = function () {
+                    $(this).parent().parent().next('.txtcomment').show();
+
+
+
+                }
+            });
+
+
+        }
+
+            //----------------------------------------------------------------------------------------------------------
+                //function like(flag) {
+                //    let eventname = document.querySelectorAll(".editpost");
+                //    eventname.forEach(function (item) {
+                //        item.onclick = function () {
+                //            //console.log(this.childNodes[1])
+                //            //console.log(this.childNodes[3])
+                //            //console.log(this.childNodes[5])
+
+                //            var n = this.childNodes[1].innerHTML;
+                //             if (n != 1) {
+                //                this.childNodes[3].innerHTML = "Likes";
+
+                //            }
+                //            if (flag == 0) {
+
+                //                this.childNodes[5].style.color = "blue";
+
+
+
+
+                //            }
+                //            else {
+
+                //                this.childNodes[5].style.color = "black";
+
+                //            }
+
+
+                //            if (n == 0) {
+                //                this.childNodes[1].style.display = "none";
+                //                this.childNodes[3].style.display = "none";
+                //            }
+                //            else {
+
+                //                this.childNodes[1].style = "display:inline-block;position:absolute;bottom:100%;left:5%;color:silver";
+                //                this.childNodes[3].style = "display:inline-block;position:absolute;bottom:100%;left:13%;color:silver;";
+
+                //            }
+
+
+                //        }
+
+                //    })
+
+
+                //}
+            //---------------------------------------------------------------------------------------------------------------------------
+                //function ADDLike(ID) {
+
+                //        $.ajax({
+                //            url: 'AddLike',
+                //            type: 'Get',
+                //            data: { id: ID }
+
+                //        });
+
+
+                //}
+    </script>
+}
+
+
+
+

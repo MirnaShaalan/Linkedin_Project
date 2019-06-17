@@ -1,0 +1,45 @@
+﻿@model LastLinkedin.Models.Post
+
+@{
+    ViewBag.Title = "View";
+}
+
+@using (Ajax.BeginForm("Create", "Home", new AjaxOptions() { HttpMethod = "post", UpdateTargetId = "pos", InsertionMode = InsertionMode.Replace, OnSuccess = "myfun()" }))
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+            <div class="col-md-4" style="position:sticky;left:43%;margin-left: 20%;">
+                @Html.DropDownListFor(u => u.ReadPost, new SelectList(new Dictionary<int, string> { { 0, "AnyOne" }, { 1, "Connections" } }, "Key", "Value"), htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(u => u.ReadPost, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+    <div class="form-group">
+        <div class="col-md-12" style="width:200%;height:200%">
+            <textarea type="text" name="Description" onkeyup="manage(this)" rows="5" cols="116" style="background-color:white;outline: none;border: none;max-width: 400px;"></textarea>
+          @*@Html.TextBoxFor(u=>u.Description,htmlAttributes:new { @class="h-25", @onkeyup = "manage(this)" })*@
+           @Html.ValidationMessageFor(u => u.Description, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-12" style="position:absolute;top:105%">
+            <input type="submit" value="Post" id="pst" class="btn btn-info" disabled />
+        </div>
+    </div>
+</div>
+}
+
+    <div>
+    @*@Html.ActionLink("Cancel", "Feeds", null, new { @class = " btn btn-danger" })*@
+
+    @*@Ajax.ActionLink("Cancel", "Feeds", null,new AjaxOptions() { },new { @class = " btn btn-danger" } )*@
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,18 @@
+﻿
+@model  IEnumerable<LastLinkedin.Models.Connection>
+
+@{ var t = 0; }
+
+@foreach (var item in Model)
+{
+    t++;
+    /** <tr>
+         <td>@item.Title</td>
+         <td>@item.Description</td>
+
+
+
+     </tr>**/
+}
+
+@t
