@@ -3,7 +3,11 @@ Building linkedIn Website using Asp.Net MVC.
 
 
 
+
+
  Migration Steps
+ 
+ 
 1- Tools -> NuGet Package Manager -> Package Manager Console
 
 
