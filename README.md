@@ -1,12 +1,15 @@
-# linkedin-aspmvc
-Building linkedIn using asp-mvc
+# linkedin-Project
+Building linkedIn Website using Asp.Net MVC.
 
 
 
-# Huge Contribution to be mentioned!
+# Migration Steps
+1- Tools -> NuGet Package Manager -> Package Manager Console
+2- Enable-Migrations
+   Add-migration Initial
+   Update-database.
 
-- Shotout for __Hanan Awad__ for her Great Contributions in the project!
-(Making the backend of the Home Section and its Layout!)
+
 
 
 
